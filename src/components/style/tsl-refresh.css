@@ -1,0 +1,38 @@
+@import "../../style/base.css";
+@import "../../style/layout.css";
+.refresh{
+    @apply --row-center;
+    width: 750px;
+    height: 100px;
+    background-color: #f6f6f6;
+    align-items: center;
+}
+.refresh-icon{
+    width: 40px;
+    height: 40px;
+    margin-right: 30px;
+    align-self: center;
+}
+.direction-icon{
+    width: 40px;
+    height: 45px;
+    margin-right: 30px;
+    align-self: center;
+}
+.refresh-div{
+    flex-direction: column;
+    align-items: center;
+    height: 100px;
+    margin-top: 30px
+}
+.refresh-text-1{
+    color: #666666;
+    text-align: center;
+    font-size: var(--s3);
+}
+.refresh-text-2{
+    color: #666666;
+    text-align: center;
+    font-size: var(--s5);
+    margin-top: 10px;
+}

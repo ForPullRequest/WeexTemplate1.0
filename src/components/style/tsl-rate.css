@@ -1,0 +1,8 @@
+.conteiner {
+    flex-direction: row;
+}
+.rate {
+    width: 45px;
+    height: 45px;
+    padding: 5px;
+}

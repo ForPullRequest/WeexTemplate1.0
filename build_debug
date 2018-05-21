@@ -1,0 +1,9 @@
+#!/bin/bash
+
+THIS_DIR=$(dirname "$0")
+pushd "$THIS_DIR"
+node css_import.js &&
+npm run dev &&
+rm -rf ./Output &&
+node encTool -i ./dist
+popd

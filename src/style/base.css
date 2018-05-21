@@ -1,0 +1,124 @@
+:root {
+
+  --s0:40px;
+  --s1:36px;
+  --s2:34px;
+  --s3:32px;
+  --s4:28px;
+  --s5:26px;
+  --s6:22px;
+
+
+  --light-black:#324057;
+  --extra-light-black:#475669;
+  --black:#1F2D3D;
+
+  --gray:#D3DCE6;
+  --light-gray:#E5E9F2;
+  --extra-light-gray:#EFF2F7;
+
+  --silver:#8492A6;
+  --light-silver:#99A9BF;
+  --extra-light-silver:#C0CCDA;
+
+  --dark-white:#F9FAFC;
+
+  --light-blue:#58B7FF;
+  --dark-blue:#1D8CE0;
+
+  --blue-normal:#20A0FF;
+  --green-normal:#09bb07;
+  --red-normal:#e64340;
+
+  --color-success:#13ce66;
+  --color-warning:#f7ba2a;
+  --color-danger:#ff4949;
+
+
+  --radius:6px;
+  --border-width:1px;
+  --padding:16px;
+  --border-color:#dddddd;
+
+  --border: {
+    border-width:var(--border-width);
+    border-color: var(--light-gray);
+  };
+}
+
+:root {
+  --base-text-style: {
+    border-radius: var(--radius);
+    padding: var(--padding);
+    text-align: center;
+  };
+}
+
+.text-default {
+  color: black;
+  background-color: var(--light-gray);
+  @apply --base-text-style;
+}
+
+.text-info {
+  color:white;
+  background-color: var(--blue-normal);
+  @apply --base-text-style;
+}
+
+.text-success {
+  color:white;
+  background-color: var(--color-success);
+  @apply --base-text-style;
+}
+
+.text-warning {
+  color: white;
+  background-color: var(--color-warning);
+  @apply --base-text-style;
+}
+
+.text-danger {
+  color: white;
+  background-color: var(--color-danger);
+  @apply --base-text-style;
+}
+
+.text-border-default {
+  color: black;
+  background-color: white;
+  @apply --border;
+  @apply --base-text-style;
+}
+
+.text-border-info {
+  color:var(--blue-normal);
+  border-color: var(--blue-normal);
+  background-color: white;
+  border-width: var(--border-width);
+  @apply --base-text-style;
+}
+
+.text-border-success {
+  color:var(--color-success);
+  border-color: var(--color-success);
+  border-width: var(--border-width);
+  background-color: white;
+  @apply --base-text-style;
+}
+
+.text-border-warning {
+  color: var(--color-warning);
+  border-color: var(--color-warning);
+  background-color: white;
+  border-width: var(--border-width);
+  @apply --base-text-style;
+}
+
+.text-border-danger {
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+  background-color: white;
+  border-width: var(--border-width);
+  @apply --base-text-style;
+}

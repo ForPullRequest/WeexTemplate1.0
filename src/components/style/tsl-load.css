@@ -1,0 +1,19 @@
+@import "../../style/base.css";
+@import "../../style/layout.css";
+.loadingtext{
+    font-size: var(--s4);;
+    color: #666666;
+}
+.loading{
+    @apply --row-center;
+    /*width: 750px;*/
+    height: 80px;
+    background-color: #f6f6f6;
+    align-items: center;
+}
+.refresh-icon{
+    width: 40px;
+    height: 40px;
+    margin-right: 30px;
+    align-self: center;
+}

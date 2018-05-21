@@ -1,0 +1,8 @@
+.container {
+    border-radius: 100px;
+    flex-direction: row;
+}
+.round {
+    background-color: white;
+    border-radius: 100px;
+}

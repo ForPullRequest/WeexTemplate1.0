@@ -1,0 +1,10 @@
+node_modules
+dist
+Output
+src/css
+.idea
+config.js
+.DS_Store
+src/.DS_Store
+src/project/.DS_Store
+res/.DS_Store

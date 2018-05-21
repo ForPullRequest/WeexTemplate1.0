@@ -1,0 +1,157 @@
+@import "../../style/base.css";
+
+:root {
+    --sz-small: {
+        width: 160px;
+        height: 62px;
+    };
+    --sz-normal: {
+        width: 330px;
+        height: 70px;
+    };
+    --sz-large: {
+        width: 690px;
+        height: 90px;
+    };
+
+}
+
+.btn {
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+
+.btn-default {
+    @apply --sz-large;
+    border-radius: var(--radius);
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    background-color: var(--color-danger);
+}
+.title {
+    text-align: center;
+    text-overflow: ellipsis;
+    lines: 1;
+}
+
+.btn-default {
+    background-color: var(--light-gray);
+}
+.btn-border-default {
+    border-width: 1px;
+    border-color:var(--light-gray);
+}
+
+.btn-success {
+    background-color: var(--color-success);
+}
+.btn-border-success {
+    border-width: 1px;
+    border-color: var(--color-success);
+}
+
+.btn-warning {
+    background-color: var(--color-warning);
+}
+
+.btn-border-warning {
+    border-width: 1px;
+    border-color: var(--color-warning);
+}
+
+.btn-danger {
+    background-color: var(--color-danger);
+}
+
+.btn-border-danger {
+    border-width: 1px;
+    border-color: var(--color-danger);
+
+}
+
+.touch-success {
+    background-color: color(var(--color-success) alpha(-80%))
+}
+
+.touch-default {
+    background-color: color(var(--light-gray) alpha(-80%));
+}
+
+.touch-warning {
+    background-color: color(var(--color-warning) alpha(-80%))
+}
+
+.touch-danger {
+    background-color: color(var(--color-danger) alpha(-80%))
+}
+
+.btn-direction-row {
+    flex-direction: row;
+}
+
+.btn-direction-column {
+    flex-direction: column;
+}
+
+.btn-sz-small {
+    @apply --sz-small;
+    border-radius: var(--radius);
+}
+
+.btn-sz-normal {
+    @apply --sz-normal;
+    border-radius: var(--radius);
+}
+
+.btn-sz-large {
+    @apply --sz-large;
+    border-radius: var(--radius);
+}
+
+.icon-sz-small {
+    width: 30px;
+    height: 30px;
+}
+
+.icon-sz-normal {
+    width: 38px;
+    height: 38px;
+}
+
+.icon-sz-large {
+    width: 58px;
+    height: 58px;
+}
+
+.icon-position-left {
+    margin-right: 10px;
+}
+
+.icon-position-right {
+    margin-left: 10px;
+}
+
+.enabled {
+    border-color: #ffffff;
+    border-width: 0;
+    border-radius: 3;
+    opacity: 0.999;
+    background-image: linear-gradient(to right, #38A6FF, #346AFE);
+}
+.disabled {
+    opacity: 0.25;
+    border-color: #C8CACD;
+    border-width: 2;
+    border-radius: 3;
+    background-color: #ffffff;
+}
+.pressed {
+    border-color: #ffffff;
+    border-width: 0;
+    border-radius: 3;
+    opacity: 0.999;
+    background-image: linear-gradient(to right, #2E8BD6, #2B5AD6);
+}

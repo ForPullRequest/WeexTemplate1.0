@@ -1,0 +1,31 @@
+@import "../../style/layout.css";
+
+.column-view {
+  @apply --wrapper;
+}
+/*.left-selection {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}*/
+.cell {
+  justify-content: center;
+}
+.item-title {
+  text-align: center;
+  text-overflow: ellipsis;
+  lines:2;
+}
+/*.content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}*/
+.item {
+  justify-content: center;
+  align-items: center;
+  borderBottomWidth:1;
+  borderBottomColor:#dddddd;
+}

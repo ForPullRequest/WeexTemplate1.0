@@ -1,0 +1,43 @@
+{
+  "name": "DRWS",
+  "description": "doctor workstation ",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.js",
+  "keywords": [
+    "weex",
+    "vue"
+  ],
+  "scripts": {
+    "build": "set NODE_ENV=production&&webpack",
+    "dev": "webpack --watch",
+    "serve": "node build/init.js && serve -p 8099",
+    "debug": "weex-devtool"
+  },
+  "dependencies": {
+    "vue": "^2.1.8",
+    "vue-router": "^2.1.1",
+    "vuex": "^2.3.1",
+    "vuex-router-sync": "^4.0.1",
+    "weex-vue-render": "^0.11.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^6.2.9",
+    "babel-preset-env": "^1.6.1",
+    "css-loader": "^0.26.1",
+    "ip": "^1.1.4",
+    "postcss": "^5.2.4",
+    "postcss-cssnext": "^2.10.0",
+    "postcss-import": "^8.1.2",
+    "postcss-loader": "^0.13.0",
+    "serve": "^1.4.0",
+    "vue-loader": "^10.0.2",
+    "vue-template-compiler": "^2.1.8",
+    "webpack": "^1.14.0",
+    "weex-devtool": "^0.3.8",
+    "weex-loader": "^0.4.1",
+    "weex-vue-loader": "^0.2.5",
+	"moment":"2.19.3"
+  }
+}

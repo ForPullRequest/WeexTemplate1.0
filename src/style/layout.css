@@ -1,0 +1,60 @@
+:root {
+
+  --row-left: {
+    flex-direction: row;
+    justify-content: flex-start;
+  };
+
+  --row-right: {
+    flex-direction: row;
+    justify-content: flex-end;
+  };
+
+  --row-center: {
+    flex-direction: row;
+    justify-content: center;
+  };
+
+  --row-between: {
+    flex-direction: row;
+    justify-content: space-between;
+  };
+
+  --row-around: {
+    flex-direction: row;
+    justify-content: space-around;
+  };
+
+  --column-top: {
+    flex-direction: column;
+    justify-content: flex-start;
+  };
+
+  --column-bottom: {
+    flex-direction: column;
+    justify-content: flex-end;
+  };
+
+  --column-center: {
+    flex-direction: column;
+    justify-content: center;
+  };
+
+  --column-between: {
+    flex-direction: column;
+    justify-content: space-between;;;
+  };
+
+  --column-around: {
+    flex-direction: column;
+    justify-content: space-around;;
+  };
+
+  --wrapper: {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  };
+}
