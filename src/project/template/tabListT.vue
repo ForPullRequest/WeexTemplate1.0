@@ -1,17 +1,17 @@
 <template>
 	<base :backItemImage="backItemImage" :barTitleColor="barTitleColor" :title="title" :rightItemText="rightItemText" :rightItemImage="rightItemImage" @baseAppear="appear" @baseBack="back" @baseTitle="titleClick" @baseRight="right" @baseDisappear="disappear">
-		<div style="flex-direction: row;">
+		<!-- 左侧类型的tab 可以滚动 -->
+		<div style="flex-direction: row;" v-if="!isCenter">
 			<tabpage :items="items" @touchPage="touchPage"></tabpage>
+		</div>
+		<!-- 中间类型的tab 不能滚动 -->
+		<div style="flex-direction: row;width: 750;justify-content: center;" v-if="isCenter">
+			<centerTabpage style="width: 750;" :items="items" @touchPage="touchPage"></centerTabpage>
 		</div>
 		<div style="flex: 1">
 			<tsl-refresh-list :hasLoad="hasLoad" :hasRefresh="hasRefresh" class="list" ref="mlist" :hasData="hasData" :hasMore="hasMore" @mload="load" @mrefresh="refresh">
 	            <!-- 通过slot将item布局外放 -->
 				<slot></slot>
-	            <!-- <cell>
-		            <list-item class="itemDiv" @onclick="itemClick(index)" @longpress="longpress(index)">
-		                <text class="item" :value="selectIndex"></text>
-		            </list-item>
-		        </cell> -->
 	        </tsl-refresh-list>
 		</div>
 	</base>
@@ -21,14 +21,6 @@
 
 .list{
     flex: 1;
-}
-.itemDiv{
-    padding: 20;
-}
-.item {
-    height: 88px;
-    align-items: center;
-    font-size: 32
 }
 </style>
 
@@ -67,11 +59,16 @@ export default{
 		itemNormolColor: 	{type: String, default: '#000000'},
 		itemSelectColor: 	{type: String, default: '#1c97fc'},
 		//此处数据格式必须为 [{name: "value",isSelect: true/false,其他自定义属性}]
-		items: 				{type: Array,  default: []}
+		items: 				{type: Array,  default: []},
+
+		//第四部分是自有的
+        //是center还是左边开始的tab
+        isCenter:        {default: false},
     },
 	components: {
         base: require('./base.vue'),
         tabpage: require('./UITabPage.vue'),
+        centerTabpage: require('./UICenterTabPage.vue'),
         'tsl-refresh-list': require('../../components/tsl-refresh-list.vue'),
         'list-item': require('../../components/tsl-list-item.vue'),
 	},
@@ -82,25 +79,54 @@ export default{
 		
 	},
 	methods:{
+        back(){
+            if(this.customBack){
+                //页面自定义退出事件
+                this.$emit('tabListBack',{});
+            }else{
+                normal.back();
+            }
+        },
+        appear() {
+            //此处不处理refresh和listAppear的关系
+            //而交由下级页面的listGet自行解决
+            //页面显示事件
+            this.$emit("tabListAppear",{});
+            this.refresh();
+        },
+        disappear() {
+            //页面隐藏事件
+            this.$emit('tabListDisappear',{});
+        },
+        right() {
+            //右侧点击通用事件
+            this.$emit('tabListRight',{});
+        },
+        titleClick(){
+            //页面标题点击事件
+            this.$emit('tabListTitle',{});
+        },
 		touchPage(e){
 			this.selectIndex = e.index;
-			this.$emit("tabPageTouch",{
+			this.$emit("tabListPage",{
                 index:e.index
             });
+            this.refresh();
 		},
         refresh() {
-            this.getList(true, function(){
+            this.getList(this.selectIndex, true, function(){
                 this.$refs.mlist.endRefresh();
             }.bind(this));
         },
         load() {
-            this.getList(false, function(){
+            this.getList(this.selectIndex, false, function(){
                 this.$refs.mlist.endLoad();
             }.bind(this));
         },
-        getList(isRefresh, end){
+        getList(index, isRefresh, end){
             //列表数据源的获取 控件的end由下级页面控制
             this.$emit("tabListAdapter",{
+            	index:index,
                 isRefresh:isRefresh,
                 end:end
             });

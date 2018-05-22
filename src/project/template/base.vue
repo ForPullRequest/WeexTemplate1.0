@@ -21,11 +21,10 @@ export default {
         rightItemText:  {default: ''},
         //标题栏的右侧图片
         rightItemImage: {default: ''},
-        //是否自定义返回事件
+        //是否自定义返回事件 配合事件baseBack
         customBack:     {default: false},
     },
     components: {
-        button: require('../components/UIButton.vue'),
         nav: require('./UINavgationBar.vue'),
     },
     data:()=> ({

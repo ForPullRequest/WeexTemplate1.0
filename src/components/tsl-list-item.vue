@@ -5,7 +5,7 @@
          @touchcancel="touchcancel"
          @longpress = "longpress"
          @click="click"
-         :style="{ backgroundColor: touched?highlightedColor:(selected?selectedColor:backgroundColor), borderBottomWidth: seprationHidden?0:1, borderBottomColor: seprationColor }">
+         :style="{ backgroundColor: touched&&hasTouchStyle?highlightedColor:(selected?selectedColor:backgroundColor), borderBottomWidth: seprationHidden?0:1, borderBottomColor: seprationColor }">
         <slot></slot>
     </div>
 </template>
@@ -20,6 +20,10 @@
             keepmarginleft:{
                 type: Boolean,
                 default: false,
+            },
+            hasTouchStyle:{
+                type: Boolean,
+                default: true,
             },
             seprationColor:{
                 default: '#e2e2e2'

@@ -22,6 +22,7 @@
 
 <script>
 const normal = require('../js/normal.js').normal;
+const request = require('../js/work-api.js').request;
 
 export default {
     data:()=> ({

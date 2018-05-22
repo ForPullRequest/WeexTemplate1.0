@@ -36,7 +36,6 @@
 </style>
 
 <script>
-const normal = require('../js/normal.js').normal;
 	const dom = weex.requireModule('dom');
 
 	export default {
@@ -82,7 +81,7 @@ const normal = require('../js/normal.js').normal;
     	mounted() {
     		for (var i in this.items) {
     			if (this.items[i].isSelect) {
-    				this.touchPage(this.items[i], i);
+    				// this.touchPage(this.items[i], i);
     				return;
     			}
     		}

@@ -2,10 +2,18 @@
     本页可以算作是listT的demo
  -->
 <template>
-	<listT ref="list" title="index" :hasData="list.length!=0" :hasRefresh="true" :hasLoad="true" :hasMore="pageNo >= totalPage" @listAdapter="getList" @listAppear="appear">
-		<cell v-for="itemData, index in list" >
-            <list-item class="itemDiv" @onclick="itemClick(index)" @longpress="longpress(index)">
+	<listT title="index" :hasData="list.length!=0" :hasRefresh="true" :hasLoad="true" :hasMore="pageNo >= totalPage" @listAdapter="getList" @listAppear="appear">
+		<cell v-for="itemData, index in list">
+            <list-item class="itemDiv" :hasTouchStyle="false" @onclick="itemClick(index)">
                 <text class="item" :value="itemData.text"></text>
+                <div class="btnRowDiv">
+                    <div class="btnDiv" v-if="itemData.src" @click="bodyClick(index)" @longpress="longpress(true, index)">
+                        <text class="demoTxt">本体</text>
+                    </div>
+                    <div class="btnDiv" style="margin-left: 20;" v-if="itemData.demoSrc" @click="demoClick(index)" @longpress="longpress(false, index)">
+                        <text class="demoTxt">demo</text>
+                    </div>
+                </div>
             </list-item>
         </cell>
 	</listT>
@@ -33,41 +41,43 @@ export default {
                     this.pageNo = 1;
                     this.totalPage = 3;
                     this.list = [{
+                        text:'empty(只用于复制粘贴)',
+                        src:'template/empty'
+                    },{
                         text:'base【推荐使用】',
-                        src:'template/base'
+                        src:'template/base',
+                        demoSrc:'template/baseEmpty'
                     },{
                         text:'list【推荐使用】',
-                        src:'template/listT'
+                        src:'template/listT',
+                        demoSrc:'template/listEmpty'
                     },{
-                        text:'tabList【推荐使用】',//TODO 使用UITabPage
-                        src:'template/tabListT'
+                        text:'tabList【推荐使用】',
+                        src:'template/tabListT',
+                        demoSrc:'template/tabListEmpty'
                     },{
                         text:'tabbar【推荐借鉴】',//太简易 不需要template
                         src:'template/tabbarT'
                     },{
-                        text:'form【推荐借鉴】',//TODO 可以直接拿list续写
+                        text:'form【推荐借鉴->推荐使用（开发中）】',//TODO 可以直接拿list续写
                         src:'template/formT'
                     },{
-                        text:'sheet【推荐借鉴】',//TODO
+                        text:'sheet【推荐借鉴->推荐使用（开发中）】',//TODO
                         src:'template/sheetT'
                     },{
                         text:'column【推荐借鉴】',//TODO
                         src:'template/columnT'
                     },{
-                        text:'empty(只用于复制粘贴)',
-                        src:'template/empty'
+                        text:'发送验证码倒计时【组件】',//TODO
+                        src:''
                     },{
-                        text:'baseEmpty(如何使用base，只用于复制粘贴)',
-                        src:'template/baseEmpty'
-                    },{
-                        text:'listEmpty(如何使用base，只用于复制粘贴)',
-                        src:'template/listEmpty'
-                    }];
+                        text:'搜索框【组件】',//TODO
+                        src:''
+                    },];
                 }else{//加载更多
-                    this.pageNo += this.pageNo;
+                    this.pageNo ++;
                     this.list.push({
                         text:'empty',
-                        src:'template/empty'
                     })
                 }
                 //结束
@@ -79,21 +89,44 @@ export default {
         },
         itemClick(index) {
             // normal.toast(this.list[index]);
+            // normal.push({src:this.list[index].src})
+        },
+        longpress(isBody, index) {
+        	normal.toast(isBody?this.list[index].src:this.list[index].demoSrc);
+        },
+        bodyClick(index) {
             normal.push({src:this.list[index].src})
         },
-        longpress(index) {
-        	normal.toast(this.list[index].src);
+        demoClick(index) {
+            normal.push({src:this.list[index].demoSrc})
         }
     }
 }
 </script>
 <style>
-	
+.btnDiv{
+    border-color: #999999;
+    border-width: 2;
+    border-radius: 16;
+    padding: 12;
+}
+.btnRowDiv{
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.bodyTxt{
+    font-size: 28;
+    color: #66ccff;
+}
+.demoTxt{
+    font-size: 28;
+    color: #ff7b35;
+}
 .itemDiv{
+    flex-direction: column;
     padding: 20;
 }
 .item {
-    height: 88px;
     align-items: center;
     font-size: 32
 }

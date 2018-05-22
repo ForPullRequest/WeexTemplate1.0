@@ -27,7 +27,7 @@ export default{
         rightItemText:  {default: ''},
         //标题栏的右侧图片
         rightItemImage: {default: ''},
-        //是否自定义返回事件
+        //是否自定义返回事件 配合事件listBack
         customBack:     {default: false},
 
         //第二部分是listT自有

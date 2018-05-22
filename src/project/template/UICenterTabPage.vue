@@ -95,7 +95,7 @@
     	mounted() {
     		for (var i in this.items) {
     			if (this.items[i].isSelect) {
-    				this.touchPage(this.items[i], i);
+    				// this.touchPage(this.items[i], i);
     				return;
     			}
     		}
