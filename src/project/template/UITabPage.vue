@@ -61,19 +61,22 @@
           return parseInt(this.itemViewHeight)+10+'px';
         },
     		touchPage(item, index) {
-    			//更改选中状态
-    			for (var i in this.items) {
-    				this.items[i].isSelect = false;
-    			}
-    			item.isSelect = true;
+          var ui = function(){
+            //更改选中状态
+            for (var i in this.items) {
+              this.items[i].isSelect = false;
+            }
+            item.isSelect = true;
 
-    			//切换tab
-    			var key = 'tabItem'+(index);
-    			if (this.$refs[key]) {
-    				dom.scrollToElement(this.$refs[key],{});
-    			}
-    			//传递事件
-    			this.$emit("touchPage",{value: item, index: index});
+            //切换tab
+            var key = 'tabItem'+(index);
+            if (this.$refs[key]) {
+              //TODO 安卓中无效果
+              dom.scrollToElement(this.$refs[key],{});
+            }
+          }.bind(this);
+          //传递事件
+          this.$emit("touchPage",{value: item, index: index, ui: ui});
     		}
     	},
     	created() {

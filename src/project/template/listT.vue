@@ -1,9 +1,9 @@
 <!-- 
-    本页可以算作是base的demo，以base为父类
-    但也是单list页面的模板
+    本页以base为父类
+    是单list页面的模板
  -->
 <template>
-    <base :backItemImage="backItemImage" :barTitleColor="barTitleColor" :title="title" :rightItemText="rightItemText" :rightItemImage="rightItemImage" @baseAppear="appear" @baseBack="back" @baseTitle="titleClick" @baseRight="right" @baseDisappear="disappear">
+    <base :backItemImage="backItemImage" :barTitleColor="barTitleColor" :title="title" :rightItemText="rightItemText" :rightItemImage="rightItemImage" :isIndex="isIndex" @baseAppear="appear" @baseBack="back" @baseTitle="titleClick" @baseRight="right" @baseDisappear="disappear">
         <tsl-refresh-list :hasLoad="hasLoad" :hasRefresh="hasRefresh" class="list" ref="mlist" :hasData="hasData" :hasMore="hasMore" @mload="load" @mrefresh="refresh">
             <!-- 通过slot将item布局外放 -->
             <slot></slot>
@@ -29,6 +29,8 @@ export default{
         rightItemImage: {default: ''},
         //是否自定义返回事件 配合事件listBack
         customBack:     {default: false},
+        //用于在iOS中进行appear问题的修复
+        isIndex:        {default: false},
 
         //第二部分是listT自有
         //用来控制“无数据页面”的显示和隐藏 通常为list.length!=0 因为listT不直接与list接触 所以由外部给
@@ -64,7 +66,8 @@ export default{
             //而交由下级页面的listGet自行解决
             //页面显示事件
             this.$emit("listAppear",{});
-            this.refresh();
+            //显示刷新事件 谁用谁管 不逾矩
+            // this.refresh();
         },
         disappear() {
             //页面隐藏事件

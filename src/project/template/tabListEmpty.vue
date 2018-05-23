@@ -1,5 +1,5 @@
 <template>
-	<tabListT title="title" :items="items" :hasData="list.length!=0" :hasRefresh="true" :hasLoad="true" :hasMore="getHasMore()" :isCenter="true" @tabListAdapter="getList" @tabListAppear="appear" @tabListPage="tabListPage">
+	<tabListT ref="tabList" title="title" :items="items" :hasData="list.length!=0" :hasRefresh="true" :hasLoad="true" :hasMore="getHasMore()" :isCenter="false" @tabListAdapter="getList" @tabListAppear="appear" @tabListPage="tabListPage">
 		<cell v-for="itemData, index in list">
             <list-item class="itemDiv" @onclick="itemClick(index)" @longpress="longpress(index)">
                 <text class="item" :value="itemData.text"></text>
@@ -51,7 +51,7 @@ export default{
 	},
 	methods:{
 		appear() {
-			//
+			this.$refs.tabList.refresh();
 		},
 		tabListPage(e) {
 			let temp = this.selectIndex;
@@ -67,13 +67,8 @@ export default{
                 	// normal.alert(this.lastIndex+'/'+tabListT.index)
                 	if(this.lastIndex == tabListT.index){//如果点击的和上次选择的一样纯粹刷新
                 		this.refresh(tabListT);
-                	}else{//调用看是否能调用items[tabListT.index].list 不能再刷新
-                		if(this.items[tabListT.index].list.length>0){
-							normal.toast('cache' + this.selectIndex)
-                			this.list = this.items[tabListT.index].list;
-                		}else{//纯粹刷新
-                			this.refresh(tabListT);
-                		}
+                	}else{
+                		this.refresh(tabListT);
                 		this.lastIndex = this.selectIndex;
                 	}
                 }else{//加载更多
@@ -82,18 +77,25 @@ export default{
                 }
 		},
 		refresh(tabListT) {
-			normal.toast('refresh' + this.selectIndex)
-			//模拟数据获取
-            setTimeout(function() {
-	            this.items[this.selectIndex].pageNo = 1;
-	            this.items[this.selectIndex].totalPage = 3;
-	            this.list = [{
-	            	text:'text'+tabListT.index
-	            }];
-	            this.items[this.selectIndex].list = this.list;
-                //结束
+			//调用看是否能调用items[tabListT.index].list 不能再刷新
+    		if(this.items[tabListT.index].list.length>0){
+				normal.toast('cache' + this.selectIndex)
+    			this.list = this.items[tabListT.index].list;
                 tabListT.end();
-            }.bind(this), 500);
+    		}else{//纯粹刷新
+				normal.toast('refresh' + this.selectIndex)
+    			//模拟数据获取
+	            setTimeout(function() {
+		            this.items[this.selectIndex].pageNo = 1;
+		            this.items[this.selectIndex].totalPage = 3;
+		            this.list = [{
+		            	text:'text'+tabListT.index
+		            }];
+		            this.items[this.selectIndex].list = this.list;
+	                //结束
+	                tabListT.end();
+	            }.bind(this), 1500);
+    		}
 		},
 		load(tabListT) {
 			normal.toast('load' + this.selectIndex)
@@ -104,7 +106,7 @@ export default{
 	            this.items[this.selectIndex].list = this.list;
                 //结束
                 tabListT.end();
-            }.bind(this), 500);
+            }.bind(this), 1500);
 		}
 	}
 }

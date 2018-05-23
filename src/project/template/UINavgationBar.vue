@@ -84,7 +84,8 @@
             contentBackGroundColor  : {default: '#f6f6f6'},
             barBackGroundColor      : {default: 'white'},
             title                   : {default: ''},
-            barTitleColor           : {default: '#333333'}
+            barTitleColor           : {default: '#333333'},
+            isIndex                 : {default: false}
         },
         data:()=>({
             height                  : 112,
@@ -112,6 +113,11 @@
                     tsl_br.onPageEnd(this.BRPageId,this.BRPageName);
                 }
                 this.$emit("viewWillDisAppear",{});
+            }
+        },
+        mounted(){
+            if(this.isIndex && weex.config.env.platform==='iOS'){
+                this.viewWillAppear();
             }
         },
         created() {

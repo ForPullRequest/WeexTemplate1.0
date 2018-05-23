@@ -1,3 +1,7 @@
+<!-- 
+    本页以base为父类
+    是多个可切换标签的单list页面的模板
+ -->
 <template>
 	<base :backItemImage="backItemImage" :barTitleColor="barTitleColor" :title="title" :rightItemText="rightItemText" :rightItemImage="rightItemImage" @baseAppear="appear" @baseBack="back" @baseTitle="titleClick" @baseRight="right" @baseDisappear="disappear">
 		<!-- 左侧类型的tab 可以滚动 -->
@@ -74,6 +78,7 @@ export default{
 	},
 	data:()=>({
 		selectIndex:0,
+        isRefresh:false,
 	}),
 	created(){
 		
@@ -92,7 +97,7 @@ export default{
             //而交由下级页面的listGet自行解决
             //页面显示事件
             this.$emit("tabListAppear",{});
-            this.refresh();
+            // this.refresh();
         },
         disappear() {
             //页面隐藏事件
@@ -107,23 +112,36 @@ export default{
             this.$emit('tabListTitle',{});
         },
 		touchPage(e){
-			this.selectIndex = e.index;
-			this.$emit("tabListPage",{
-                index:e.index
-            });
-            this.refresh();
+            // normal.alert(this.$refs.mlist.isConnect())
+            setTimeout(() => {
+                if(this.isRefresh){
+                    normal.toast('正在获取数据中..')
+                    return;
+                }else{
+                    e.ui();
+                    this.selectIndex = e.index;
+                    this.$emit("tabListPage",{
+                        index:e.index
+                    });
+                    this.refresh();
+                }
+            }, 400)
 		},
         refresh() {
             this.getList(this.selectIndex, true, function(){
+                this.isRefresh = false;
                 this.$refs.mlist.endRefresh();
             }.bind(this));
         },
         load() {
             this.getList(this.selectIndex, false, function(){
+                this.isRefresh = false;
                 this.$refs.mlist.endLoad();
             }.bind(this));
         },
         getList(index, isRefresh, end){
+            // normal.alert('true')
+            this.isRefresh = true;
             //列表数据源的获取 控件的end由下级页面控制
             this.$emit("tabListAdapter",{
             	index:index,

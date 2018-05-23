@@ -1,10 +1,10 @@
 <template>
-	<listT ref="list" title="title" :hasData="list.length!=0" :hasRefresh="true" :hasLoad="true" :hasMore="pageNo >= totalPage" @listAdapter="getList" @listAppear="appear">
+	<sheetT title="title" :hasData="list.length!=0" :hasRefresh="true" :hasLoad="true" :hasMore="pageNo >= totalPage" @listAdapter="getList" @baseAppear="appear">
 		<cell v-for="item, index in list" >
 			<list-item class="itemDiv" :hasTouchStyle="true" @onclick="itemClick(index)">
 			</list-item>
 		</cell>
-	</listT>
+	</sheetT>
 </template>
 
 <style>
@@ -18,7 +18,7 @@
 const normal = require('../js/normal.js').normal;
 export default{
 	components: {
-        listT: require('./listT.vue'),
+        sheetT: require('./sheetT.vue'),
         'list-item': require('../../components/tsl-list-item.vue'),
 	},
 	data:()=>({
@@ -31,13 +31,13 @@ export default{
 	},
 	methods:{
 		appear() {
-			this.$refs.list.refresh();
+
 		},
         itemClick(index) {
 
         },
 		getList() {
-			
+
 		},
 	}
 }

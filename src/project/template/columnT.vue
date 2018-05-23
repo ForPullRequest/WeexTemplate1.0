@@ -1,113 +1,105 @@
 <template>
-    <base title="column" @baseAppear="onappear">
-    <!-- <navpage backItemImage="back" barTitleColor="#333333" title="远程病理" @viewWillAppear="onappear"> -->
-        <columnview :items="deptList" :leftSelectionWidth="240" :borderLeftWidth="4" v-on:itemSelect="onitemclick">
-            <tsl-refresh-list class="list white" ref="mlist" :hasData="list.length!=0" :hasMore="items[index].page_no >= items[index].total_page" @mload="load" @mrefresh="refresh">
-                <cell v-for="itemData, index in list" :key="itemData">
+    <base :backItemImage="backItemImage" :barTitleColor="barTitleColor" :title="title" :rightItemText="rightItemText" :rightItemImage="rightItemImage" :isIndex="isIndex" @baseAppear="appear" @baseBack="back" @baseTitle="titleClick" @baseRight="right" @baseDisappear="disappear">
+        <columnview :items="columnList" :leftSelectionWidth="250" :borderLeftWidth="4" @itemSelect="itemSelect">
+            <!-- myWidth必须要填 为了iOS中的显示问题 -->
+            <tsl-refresh-list class="list white" ref="mlist" :hasData="hasData" :hasMore="items[selectIndex].page_no >= items[selectIndex].total_page" :myWidth="500" @mload="load" @mrefresh="refresh">
+                <!-- <cell v-for="itemData, index in list" :key="itemData">
                     <listitem class="itemDiv" v-on:onclick="itemClick(index)">
                         <text class="text">{{itemData}}</text>
                     </listitem>
-                </cell>
+                </cell> -->
+                <slot></slot>
             </tsl-refresh-list>
         </columnview>
-    <!-- </navpage> -->
     </base>
 </template>
 <script>
-    const normal = require('../js/normal.js').normal;
-    export default{
-        data:()=> ({
-            //左列表数据
-            deptList: ['呼吸科','内科1','内科2'],
-            //cache数据集
-            items:[{
-                title:'呼吸科',
-                list:[],
-                page_no:1,
-                total_page:1,
-            },{
-                title:'内科1',
-                list:[],
-                page_no:1,
-                total_page:2,
-            },{
-                title:'内科2',
-                list:[],
-                page_no:1,
-                total_page:3,
-            }],
-            //主列表数据集
-            list:[],
-            index:0,//columnView的index
-        }),
-        components: {
-            base: require('./base.vue'),
-            // navpage: require('../components/UINavgationBar.vue'),
-            columnview: require('../../components/tsl-columnview.vue'),
-            listitem: require('../../components/tsl-list-item.vue'),
-            'tsl-refresh-list': require('../../components/tsl-refresh-list.vue'),
+const normal = require('../js/normal.js').normal;
+export default{
+    props:{
+        //第一部分继承自base
+        //页面的标题
+        title:          {default: 'column'},
+        //页面的标题颜色
+        barTitleColor:  {default: '#333333'},
+        //标题栏的返回图片
+        backItemImage:  {default: 'back'},
+        //标题栏的右侧文字
+        rightItemText:  {default: ''},
+        //标题栏的右侧图片
+        rightItemImage: {default: ''},
+        //是否自定义返回事件 配合事件listBack
+        customBack:     {default: false},
+        //用于在iOS中进行appear问题的修复
+        isIndex:        {default: false},
+
+        //第二部分是listT自有
+        //用来控制“无数据页面”的显示和隐藏 通常为list.length!=0 因为listT不直接与list接触 所以由外部给
+        hasData:        {default: 0},
+        //用来控制是否能进行load操作 通常为pageNo >= totalPage（pageNo为当前的页码 totalPage为当前list的总页数）
+        hasMore:        {default: true},
+        //是否启用刷新控件
+        hasRefresh:     {default: true},
+        //是否启用加载控件
+        hasLoad:        {default: true},
+
+        //第三部分来自于columnview
+        //左列表数据
+        columnList:       {default: []},
+        //cache数据集
+        items:          {default: [{
+                                        title:'',
+                                        list:[],
+                                        page_no:1,
+                                        total_page:1,
+                                    }]},
+    },
+    data:()=> ({
+        // //主列表数据集
+        // list:[],
+        selectIndex:0,//columnView的index
+    }),
+    components: {
+        base: require('./base.vue'),
+        columnview: require('../../components/tsl-columnview.vue'),
+        'tsl-refresh-list': require('../../components/tsl-refresh-list.vue'),
+    },
+    methods: {
+        appear(){
+            // this.refresh(true);
+            this.$emit("columnAppear",{});
         },
-        methods: {
-            onappear(){
-                this.refresh(true);
-            },
-            itemClick(index){
-                normal.toast(this.index+'itemClick'+this.list[index]);
-            },
-            onitemclick:function (val) {
-                //保证load.refresh正常赋值 第二次点击不干扰第一次的赋值结果
-                if(this.index!=val){
-                    setTimeout(function () {
-                        this.index = val;
-                        this.refresh(false);
-                    }.bind(this), 500);
-                }
-            },
-            load() {
-                //保证index final
-                var index = this.index;
-                //模拟正常网络
+        itemSelect:function (val) {
+            //保证load.refresh正常赋值 第二次点击不干扰第一次的赋值结果
+            if(this.selectIndex!=val){
                 setTimeout(function () {
-                    this.items[index].page_no++;
-                    if(this.index!=index){
-                        this.items[index].list.push('儿科'+index);
-                        // normal.alert(normal.json(this.items[index].list));
-                        this.$refs.mlist.endLoad();
-                        return;
-                    }
-                    this.items[index].list.push('儿科'+index);
-                    this.$refs.mlist.endLoad();
+                    this.selectIndex = val;
+                    // this.refresh(false);
                 }.bind(this), 500);
-            },
-            refresh(isTrueRefresh){
-                //保证index final
-                var index = this.index;
-                //如果存在于缓存内且不为主动刷新则取缓存
-                if(isTrueRefresh==false && this.items[index].list.length!=0){
-                    normal.toast('cache'+index);
-                    this.list = this.items[index].list;
-                    this.$refs.mlist.endRefresh();
-                }else{
-                    this.items[index].page_no = 1;
-                    //模拟正常网络
-                    setTimeout(function () {
-                        if(this.index!=index){
-                            this.items[index].list = [index + '呼吸科','内科1','内科2','内科3','内科4','内科5','内科6','内科7','内科8','内科9'];
-                            // normal.alert(normal.json(this.items[index].list));
-                            this.$refs.mlist.endRefresh();
-                            return;
-                        }
-                        normal.toast('net'+index);
-                        this.items[index].list = [index + '呼吸科','内科1','内科2','内科3','内科4','内科5','内科6','内科7','内科8','内科9'];
-                        this.list = this.items[index].list;
-                        this.$refs.mlist.endRefresh();
-                    }.bind(this), 500);
-                }
             }
         },
-        created: function () {
-        }
+        load() {
+            this.getList(false, function(){
+                this.$refs.mlist.endLoad();
+            }.bind(this));
+        },
+        refresh(){
+            this.getList(true, function(){
+                this.$refs.mlist.endRefresh();
+            }.bind(this));
+        },
+        getList(isRefresh, end){
+            //列表数据源的获取 控件的end由下级页面控制
+            this.$emit("columnAdapter",{
+                selectIndex:this.selectIndex,
+                isRefresh:isRefresh,
+                end:end
+            }.bind(this));
+        },
+    },
+    created: function () {
     }
+}
 </script>
 
 <style>

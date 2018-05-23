@@ -1,3 +1,7 @@
+<!-- 
+    本页以base为父类
+    是带筛选条件的list页面的模板
+ -->
 <template>
     <base title="sheet" @baseAppear="onappear">
         <div class="under-line">
@@ -22,7 +26,6 @@
 
 <script>
 const normal = require('../js/normal.js').normal;
-const request = require('../js/work-api.js').request;
 
 export default {
     data:()=> ({
@@ -70,7 +73,7 @@ export default {
             this.showSelect = !this.showSelect;
         },
         onappear() {
-            this.refresh();
+            // this.refresh();
         },
         refresh() {
             this.getList(true);

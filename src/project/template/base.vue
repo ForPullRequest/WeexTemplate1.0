@@ -3,7 +3,7 @@
     也可以参照base进行修改建立另外的base样式
  -->
 <template>
-	<nav :backItemImage="backItemImage" :barTitleColor="barTitleColor" :title="title" :rightItemText="rightItemText" :rightItemImage="rightItemImage" contentBackGroundColor="#f6f6f6" barBackGroundColor="white" @viewWillAppear="appear" @backItemAction="back" @titleAction="titleClick" @rightItemAction="right" @viewWillDisAppear="disappear">
+	<nav :backItemImage="backItemImage" :barTitleColor="barTitleColor" :title="title" :rightItemText="rightItemText" :rightItemImage="rightItemImage" contentBackGroundColor="#f6f6f6" barBackGroundColor="white" :isIndex="isIndex" @viewWillAppear="appear" @backItemAction="back" @titleAction="titleClick" @rightItemAction="right" @viewWillDisAppear="disappear">
 		<slot></slot>
 	</nav>
 </template>
@@ -23,6 +23,8 @@ export default {
         rightItemImage: {default: ''},
         //是否自定义返回事件 配合事件baseBack
         customBack:     {default: false},
+        //用于在iOS中进行appear问题的修复
+        isIndex:        {default: false},
     },
     components: {
         nav: require('./UINavgationBar.vue'),

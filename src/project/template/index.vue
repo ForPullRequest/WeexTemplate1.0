@@ -2,7 +2,7 @@
     本页可以算作是listT的demo
  -->
 <template>
-	<listT title="index" :hasData="list.length!=0" :hasRefresh="true" :hasLoad="true" :hasMore="pageNo >= totalPage" @listAdapter="getList" @listAppear="appear">
+	<listT ref="list" title="index" :hasData="list.length!=0" :hasRefresh="true" :hasLoad="true" :hasMore="pageNo >= totalPage" :isIndex="true" @listAdapter="getList" @listAppear="appear">
 		<cell v-for="itemData, index in list">
             <list-item class="itemDiv" :hasTouchStyle="false" @onclick="itemClick(index)">
                 <text class="item" :value="itemData.text"></text>
@@ -31,7 +31,7 @@ export default {
         list:[],
     }),
     created(){
-        
+
     },
     methods: {
         getList(listT){
@@ -63,10 +63,12 @@ export default {
                         src:'template/formT'
                     },{
                         text:'sheet【推荐借鉴->推荐使用（开发中）】',//TODO
-                        src:'template/sheetT'
+                        src:'template/sheetT',
+                        demoSrc:'template/sheetEmpty'
                     },{
                         text:'column【推荐借鉴】',//TODO
-                        src:'template/columnT'
+                        src:'template/columnT',
+                        demoSrc:'template/columnEmpty'
                     },{
                         text:'发送验证码倒计时【组件】',//TODO
                         src:''
@@ -85,7 +87,7 @@ export default {
             }.bind(this), 500);
         },
         appear(){
-
+            this.$refs.list.refresh();
         },
         itemClick(index) {
             // normal.toast(this.list[index]);
@@ -111,6 +113,7 @@ export default {
     padding: 12;
 }
 .btnRowDiv{
+    margin-top: 10;
     flex-direction: row;
     justify-content: flex-end;
 }
