@@ -2,8 +2,8 @@
     本页可以算作是listT的demo
  -->
 <template>
-	<listT ref="list" title="index" :hasData="list.length!=0" :hasRefresh="true" :hasLoad="true" :hasMore="pageNo >= totalPage" :isIndex="true" @listAdapter="getList" @listAppear="appear">
-		<cell v-for="itemData, index in list">
+    <listT ref="list" title="index" :hasData="list.length!=0" :hasRefresh="true" :hasLoad="true" :hasMore="pageNo >= totalPage" :isIndex="true" @listAdapter="getList" @listAppear="appear">
+        <cell v-for="itemData, index in list">
             <list-item class="itemDiv" :hasTouchStyle="false" @onclick="itemClick(index)">
                 <text class="item" :value="itemData.text"></text>
                 <div class="btnRowDiv">
@@ -16,14 +16,14 @@
                 </div>
             </list-item>
         </cell>
-	</listT>
+    </listT>
 </template>
 <script>
 const normal = require('../js/normal.js').normal;
 export default {
     components: {
         listT: require('./listT.vue'),
-        'list-item': require('../../components/tsl-list-item.vue'),
+        'list-item': require('./UIListItem.vue'),
     },
     data:()=> ({
         pageNo:1,
@@ -56,11 +56,12 @@ export default {
                         src:'template/tabListT',
                         demoSrc:'template/tabListEmpty'
                     },{
-                        text:'tabbar【推荐借鉴】',//太简易 不需要template
+                        text:'tabbar【作废】',//为了适配h5 需要纯js控件
                         src:'template/tabbarT'
                     },{
                         text:'form【推荐借鉴->推荐使用（开发中）】',//TODO 可以直接拿list续写
-                        src:'template/formT'
+                        src:'template/formT',
+                        demoSrc:'template/formEmpty'
                     },{
                         text:'sheet【推荐借鉴->推荐使用（开发中）】',//TODO
                         src:'template/sheetT',
@@ -94,7 +95,7 @@ export default {
             // normal.push({src:this.list[index].src})
         },
         longpress(isBody, index) {
-        	normal.toast(isBody?this.list[index].src:this.list[index].demoSrc);
+            normal.toast(isBody?this.list[index].src:this.list[index].demoSrc);
         },
         bodyClick(index) {
             normal.push({src:this.list[index].src})

@@ -3,9 +3,9 @@
     也可以参照base进行修改建立另外的base样式
  -->
 <template>
-	<nav :backItemImage="backItemImage" :barTitleColor="barTitleColor" :title="title" :rightItemText="rightItemText" :rightItemImage="rightItemImage" contentBackGroundColor="#f6f6f6" barBackGroundColor="white" :isIndex="isIndex" @viewWillAppear="appear" @backItemAction="back" @titleAction="titleClick" @rightItemAction="right" @viewWillDisAppear="disappear">
-		<slot></slot>
-	</nav>
+    <nav :backItemImage="backItemImage" :barTitleColor="barTitleColor" :title="title" :rightItemText="rightItemText" :rightItemImage="rightItemImage" contentBackGroundColor="#f6f6f6" barBackGroundColor="white" :isIndex="isIndex" @viewWillAppear="appear" @backItemAction="back" @titleAction="titleClick" @rightItemAction="right" @viewWillDisAppear="disappear">
+        <slot></slot>
+    </nav>
 </template>
 <script>
 const normal = require('../js/normal.js').normal;

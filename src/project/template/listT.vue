@@ -43,7 +43,7 @@ export default{
         hasLoad:        {default: true},
     },
     components: {
-        'tsl-refresh-list': require('../../components/tsl-refresh-list.vue'),
+        'tsl-refresh-list': require('./UIRefreshList.vue'),
         base: require('./base.vue'),
     },
     data:()=>({

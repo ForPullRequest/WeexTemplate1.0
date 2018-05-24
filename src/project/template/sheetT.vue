@@ -45,12 +45,11 @@ export default {
         selectItemHeight:100,
     }),
     components: {
-        // navpage: require('../components/UINavgationBar.vue'),
         base: require('./base.vue'),
-        'tsl-refresh-list':require('../../components/tsl-refresh-list.vue'),
-        'sheet':require('../components/alert/tsl-sheet.vue'),
-        'select-section':require('../components/select-section.vue'),
-        listitem: require('../../components/tsl-list-item.vue'),
+        'tsl-refresh-list':require('./UIRefreshList.vue'),
+        'sheet':require('./UISheet.vue'),
+        'select-section':require('./UISelectSection.vue'),
+        listitem: require('./UIListItem.vue'),
     },
     created(){
         this.refresh();

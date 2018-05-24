@@ -1,7 +1,7 @@
 <template>
-	<base title="title" @baseAppear="appear">
-	
-	</base>
+    <base title="title" @baseAppear="appear">
+    
+    </base>
 </template>
 
 <style>
@@ -11,19 +11,19 @@
 <script>
 const normal = require('../js/normal.js').normal;
 export default{
-	components: {
+    components: {
         base: require('./base.vue'),
-	},
-	data:()=>({
-		
-	}),
-	created(){
-		
-	},
-	methods:{
-		appear(){
+    },
+    data:()=>({
+        
+    }),
+    created(){
+        
+    },
+    methods:{
+        appear(){
 
-		},
-	}
+        },
+    }
 }
 </script>
