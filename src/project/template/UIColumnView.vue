@@ -47,7 +47,7 @@
 }
 </style>
 <script>
-    let modal = weex.requireModule('modal');
+    // let modal = weex.requireModule('modal');
     module.exports = {
         props: {
             // option: {

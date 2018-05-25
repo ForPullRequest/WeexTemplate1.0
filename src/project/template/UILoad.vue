@@ -28,8 +28,8 @@
 </style>
 <script>
     const animation = weex.requireModule('animation');
-    const modal = weex.requireModule('modal');
-    var cache = weex.requireModule('TSLCache');
+    // const modal = weex.requireModule('modal');
+    // var cache = weex.requireModule('TSLCache');
     module.exports = {
         props:{
             loadstatus:{

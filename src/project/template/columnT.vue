@@ -104,7 +104,7 @@ export default{
             //页面标题点击事件
             this.$emit('columnTitle',{});
         },
-        //来自tab
+        //继承自tab
         touchPage(page){
             var showData = function(){
                 this.refresh();
@@ -127,7 +127,7 @@ export default{
                 }
             }, 400)
         },
-        //来自column
+        //继承自column
         load() {
             this.getList(false, function(){
                 this.isRefresh = false;

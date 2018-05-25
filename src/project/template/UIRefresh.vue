@@ -37,9 +37,8 @@
     }
 </style>
 <script>
+    const normal = require('../js/normal.js').normal;
     const animation = weex.requireModule('animation');
-    const modal = weex.requireModule('modal');
-    var cache = weex.requireModule('TSLCache');
 
     module.exports = {
         data:()=> ({
@@ -88,7 +87,7 @@
                 }
             },
             getCacheTime(){
-                cache.getValue('lastRefreshTime', function (ret) {
+                normal.get('lastRefreshTime', function (ret) {
                     if (ret.val == null) {
                         return '';
                     } else {
@@ -105,7 +104,7 @@
             saveTime(){
                 var date = new Date();
                 var onlyDate = date.getFullYear() + '-' + this.setZero(date.getMonth()+1) + '-' + this.setZero(date.getDate())+' '+this.setZero(date.getHours())+':'+this.setZero(date.getMinutes());
-                cache.save(onlyDate, 'lastRefreshTime', function () {});
+                normal.save(onlyDate, 'lastRefreshTime', function () {});
             },
             setZero:function (val) {
                 if(val<10){

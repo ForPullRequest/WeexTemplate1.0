@@ -11,8 +11,6 @@
 <style>
 .container{
     flex-direction: row;
-    justify-content: center;
-    flex: 1;
 }
 
 .div-container{
@@ -26,15 +24,19 @@
 }
 
 .radio-text{
-    font-size:var(--s3);
+    font-size:28;
     color: #666666;
     margin-left: 10px;
+    align-self: center;
 }
 </style>
 <script>
     const dom = weex.requireModule('dom')
     module.exports = {
         props: {
+            checkboxs:{
+                default: [],
+            },
             value:{
                 default: [],
             },
@@ -47,7 +49,7 @@
         },
         data(){
             return {
-                checkboxs: [],
+                // checkboxs: [],
                 chcklists: this.value,
             }
         },

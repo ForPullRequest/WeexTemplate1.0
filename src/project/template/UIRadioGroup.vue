@@ -22,9 +22,10 @@
     height: 40px;
 }
 .radio-text{
-    font-size: var(--s3);
+    font-size: 28;
     color: #666666;
     margin-left: 10px;
+    align-self: center;
 }
 </style>
 <script>

@@ -1,5 +1,5 @@
 <template>
-    <sheetT title="title" :hasData="list.length!=0" :hasRefresh="true" :hasLoad="true" :hasMore="pageNo >= totalPage" @listAdapter="getList" @baseAppear="appear">
+    <sheetT ref="list" title="title" :hasData="list.length!=0" :hasRefresh="true" :hasLoad="true" :hasMore="pageNo >= totalPage" @sheetAdapter="getList" @baseAppear="appear" @sheetClick="sheetClick">
         <cell v-for="item, index in list" >
             <list-item class="itemDiv" :hasTouchStyle="true" @onclick="itemClick(index)">
             </list-item>
@@ -31,13 +31,18 @@ export default{
     },
     methods:{
         appear() {
-
+            this.$refs.list.refresh();
         },
         itemClick(index) {
 
         },
-        getList() {
-
+        getList(sheetT) {
+            if(listT.isRefresh){
+                //刷新
+            }else{
+                //加载更多
+            }
+            listT.end();
         },
     }
 }

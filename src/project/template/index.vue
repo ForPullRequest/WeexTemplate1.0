@@ -4,7 +4,7 @@
 <template>
     <listT ref="list" title="index" :hasData="list.length!=0" :hasRefresh="true" :hasLoad="true" :hasMore="pageNo >= totalPage" :isIndex="true" @listAdapter="getList" @listAppear="appear">
         <cell v-for="itemData, index in list">
-            <list-item class="itemDiv" :hasTouchStyle="false" @onclick="itemClick(index)">
+            <list-item class="itemDiv" :hasTouchStyle="false">
                 <text class="item" :value="itemData.text"></text>
                 <div class="btnRowDiv">
                     <div class="btnDiv" v-if="itemData.src" @click="bodyClick(index)" @longpress="longpress(true, index)">
@@ -42,34 +42,34 @@ export default {
                     this.totalPage = 3;
                     this.list = [{
                         text:'empty(只用于复制粘贴)',
-                        src:'template/empty'
+                        src:'./empty'
                     },{
                         text:'base【推荐使用】',
-                        src:'template/base',
-                        demoSrc:'template/baseEmpty'
+                        src:'./base',
+                        demoSrc:'./baseEmpty'
                     },{
                         text:'list【推荐使用】',
-                        src:'template/listT',
-                        demoSrc:'template/listEmpty'
+                        src:'./listT',
+                        demoSrc:'./listEmpty'
                     },{
                         text:'tabList【推荐使用】',
-                        src:'template/tabListT',
-                        demoSrc:'template/tabListEmpty'
+                        src:'./tabListT',
+                        demoSrc:'./tabListEmpty'
                     },{
                         text:'tabbar【作废】',//为了适配h5 需要纯js控件
-                        src:'template/tabbarT'
+                        src:'./tabbarT'
                     },{
                         text:'form【推荐借鉴->推荐使用（开发中）】',//TODO 可以直接拿list续写
-                        src:'template/formT',
-                        demoSrc:'template/formEmpty'
+                        src:'./formT',
+                        demoSrc:'./formEmpty'
                     },{
                         text:'sheet【推荐借鉴->推荐使用（开发中）】',//TODO
-                        src:'template/sheetT',
-                        demoSrc:'template/sheetEmpty'
+                        src:'./sheetT',
+                        demoSrc:'./sheetEmpty'
                     },{
                         text:'column【推荐借鉴】',//TODO
-                        src:'template/columnT',
-                        demoSrc:'template/columnEmpty'
+                        src:'./columnT',
+                        demoSrc:'./columnEmpty'
                     },{
                         text:'发送验证码倒计时【组件】',//TODO
                         src:''

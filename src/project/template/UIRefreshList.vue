@@ -37,7 +37,6 @@
 </style>
 <script>
     const animation = weex.requireModule('animation');
-    const modal = weex.requireModule('modal');
     module.exports = {
         props: {
             hasMore:{

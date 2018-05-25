@@ -8,6 +8,7 @@
             <!-- 通过slot将item布局外放 -->
             <slot></slot>
         </tsl-refresh-list>
+        <slot name="action"></slot>
     </base>
 </template>
 
@@ -53,6 +54,7 @@ export default{
         
     },
     methods:{
+        //继承自base
         back(){
             if(this.customBack){
                 //页面自定义退出事件
@@ -81,6 +83,7 @@ export default{
             //页面标题点击事件
             this.$emit('listTitle',{});
         },
+        //继承自list
         refresh() {
             this.getList(true, function(){
                 this.$refs.mlist.endRefresh();

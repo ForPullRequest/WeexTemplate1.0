@@ -36,7 +36,7 @@
 </style>
 
 <script>
-    const dom = weex.requireModule('dom');
+    // const dom = weex.requireModule('dom');
 
     export default {
             components: {
@@ -69,11 +69,11 @@
                         item.isSelect = true;
 
                         //切换tab
-                        var key = 'tabItem'+(index);
-                        if (this.$refs[key]) {
-                            //TODO 安卓中无效果
-                            dom.scrollToElement(this.$refs[key],{});
-                        }
+                        // var key = 'tabItem'+(index);
+                        // if (this.$refs[key]) {
+                            //TODO 安卓中无效果 iOS崩溃
+                            // dom.scrollToElement(this.$refs[key],{});
+                        // }
                     }.bind(this);
                     //传递事件
                     this.$emit("touchPage",{value: item, index: index, ui: ui});

@@ -1,5 +1,5 @@
 <template>
-    <tabListT ref="tabList" title="title" :items="items" :hasData="list.length!=0" :hasRefresh="true" :hasLoad="true" :hasMore="getHasMore()" :isCenter="true" @tabListAdapter="getList" @tabListAppear="appear" @tabListPage="tabListPage">
+    <tabListT ref="tabList" title="title" :items="tabs" :hasData="list.length!=0" :hasRefresh="true" :hasLoad="true" :hasMore="getHasMore()" :isCenter="true" @tabListAdapter="getList" @tabListAppear="appear" @tabListPage="tabListPage">
         <cell v-for="itemData, index in list" :key="itemData">
             <list-item class="itemDiv" @onclick="itemClick(index)" @longpress="longpress(index)">
                 <text class="item" :value="itemData.text"></text>
@@ -27,6 +27,13 @@ export default{
         tabListT: require('./tabListT.vue'),
     },
     data:()=>({
+        tabs:[{
+            name: "tab1",
+            isSelect: true,
+        },{
+            name: "tab2",
+            isSelect: false,
+        }],
         items:[{
             name: "tab1",
             isSelect: true,
@@ -68,7 +75,7 @@ export default{
         },
         getList(tabListT) {
             if(tabListT.isRefresh){//刷新
-                //当缓存中有数据时且
+                //当缓存中有数据时且是通过tab取缓存
                 if(this.isCache && this.items[this.selectIndex].list.length > 0){
                     this.isCache = false;
                     this.cache(tabListT);

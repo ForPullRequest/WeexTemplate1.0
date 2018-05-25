@@ -10,7 +10,7 @@
     </div>
 </template>
 <script>
-    let modal = weex.requireModule('modal');
+    // let modal = weex.requireModule('modal');
     module.exports = {
         props: {
             seprationHidden:{

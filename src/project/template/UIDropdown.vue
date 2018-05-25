@@ -1,10 +1,11 @@
 <template>
     <div class="wrapper" :style="{overflow: 'hidden', height: isMaskShow?getHeight:0}" :tag="tag">
-        <div class="options" ref="options" :style="{ height: getHeight, visibility: isMaskShow ?'visible':'hidden', top: optionTop}">
+
+        <div class="options" ref="options" :style="{ height: getHeight, visibility: isMaskShow ?'visible':'hidden', top: optionTop}"><!-- , width: mWidth -->
             <scroller>
                 <div v-for="item,index in items" class="cell" :style="{ height: itemHeight, backgroundColor: itemColor }"
                       @click="onItemClick(index)">
-                    <text class="name" :style="{ color: index==selectedIndex?selectedTextColor:textColor, fontSize: textSize }">{{item}}</text>
+                    <text class="name" :style="{ color: index==selectedIndex?selectedTextColor:textColor, fontSize: textSize }">{{item.name}}</text>
                     <image class="icon-curr-flag" src="iconSelect" v-if="index==selectedIndex"></image>
                 </div>
             </scroller>
@@ -26,20 +27,6 @@
         visibility: hidden;
     }
 
-    .select {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        padding-left: 30;
-        padding-right: 30;
-
-        border-bottom-width: 1;
-        border-style: solid;
-        border-color: #ddd;
-        height: 100px;
-        background-color: white;
-    }
-
     .options {
         position: absolute;
         left: 0;
@@ -55,9 +42,6 @@
         align-items: center;
         padding-left: 54;
         padding-right: 54;
-        border-bottom-width: 1;
-        border-style: solid;
-        border-color: #ddd;
     }
 
     .name {
@@ -81,7 +65,7 @@
 
 </style>
 <script>
-    var m = require('@weex-module/modal');
+    var animation = require('./animation.js').animation;
     module.exports = {
         data(){
             return {
@@ -117,13 +101,13 @@
         methods: {
             switchView() {
                 this.isMaskShow = !this.isMaskShow;
-                opacity(this.$refs.mask, 0.1, 1, true);
-                translate(this.$refs.options, 0, this.items.length>this.showNum?(this.itemHeight*this.showNum):(this.items.length*this.itemHeight), true);
+                animation.opacity(this.$refs.mask, 0.1, 1, true);
+                animation.translate(this.$refs.options, 0, this.items.length>this.showNum?(this.itemHeight*this.showNum):(this.items.length*this.itemHeight), true);
             },
 
             onItemClick(index) {
                 this.selectedIndex = index;
-                this.$emit('dd_itemClick', this.items[this.selectedIndex].name);
+                this.$emit('dd_itemClick',index);
             },
 
             toggleMaskVisible() {
@@ -146,37 +130,8 @@
             getSelectedId() {
                 return this.selectedIndex;
             },
-
-            //透明度变化
-            opacity: function (ref, fromValue, toValue, reverse, callback) {
-                var self = this;
-                if (reverse) {
-                  self.data.current_opacity = self.data.current_opacity === toValue ? fromValue : toValue;
-                } else {
-                  self.data.current_opacity = toValue;
-                }
-
-                self.anim(ref, {
-                    opacity: self.data.current_opacity
-                }, 'ease-in-out', 500, callback);
-            },
-
-            //平移
-            translate: function (ref, offsetX, offsetY, reverse, callback) {
-
-                if (reverse) {
-                  var translate = 'translate(' + offsetX + ', ' + offsetY + ')';
-                  this.data.current_translate = this.data.current_translate!='' ? '' : translate;
-                } else {
-                  this.data.offsetX = this.data.offsetX + offsetX;
-                  this.data.offsetY = this.data.offsetY + offsetY;
-                  var translate = 'translate(' + this.data.offsetX + ', ' + this.data.offsetY + ')';
-                  this.data.current_translate = translate;
-                }
-
-                this.anim(ref, {
-                    transform: this.data.current_translate
-                }, 'ease-in-out', 500, callback);
+            getSelectedId() {
+                return this.selectedIndex;
             },
         }
     }

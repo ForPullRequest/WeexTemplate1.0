@@ -36,8 +36,13 @@ export default{
         itemClick(index) {
 
         },
-        getList() {
-            
+        getList(listT) {
+            if(listT.isRefresh){
+                //刷新
+            }else{
+                //加载更多
+            }
+            listT.end();
         },
     }
 }

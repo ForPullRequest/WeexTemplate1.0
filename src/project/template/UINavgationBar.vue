@@ -69,7 +69,7 @@
 
 <script>
     const normal          = require('../js/normal.js').normal;
-    const tsl_br          = weex.requireModule('BRAgent');
+    // const tsl_br          = weex.requireModule('BRAgent');
 
     export default {
         components: {
@@ -103,15 +103,15 @@
                 this.$emit("rightItemAction",{});
             },
             viewWillAppear() {
-                if(this.BRPageId && this.BRPageName){
-                    tsl_br.onPageStart(this.BRPageId,this.BRPageName);
-                }
+                // if(this.BRPageId && this.BRPageName){
+                //     tsl_br.onPageStart(this.BRPageId,this.BRPageName);
+                // }
                 this.$emit("viewWillAppear",{});
             },
             viewWillDisAppear() {
-                if(this.BRPageId && this.BRPageName){
-                    tsl_br.onPageEnd(this.BRPageId,this.BRPageName);
-                }
+                // if(this.BRPageId && this.BRPageName){
+                //     tsl_br.onPageEnd(this.BRPageId,this.BRPageName);
+                // }
                 this.$emit("viewWillDisAppear",{});
             }
         },
