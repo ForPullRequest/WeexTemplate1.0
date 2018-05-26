@@ -4,7 +4,7 @@
 <template>
     <listT ref="list" title="index" :hasData="list.length!=0" :hasRefresh="true" :hasLoad="true" :hasMore="pageNo >= totalPage" :isIndex="true" @listAdapter="getList" @listAppear="appear">
         <cell v-for="itemData, index in list">
-            <list-item class="itemDiv" :hasTouchStyle="false">
+            <list-item class="itemDiv" :hasTouchStyle="false" @onclick="itemClick(index)">
                 <text class="item" :value="itemData.text"></text>
                 <div class="btnRowDiv">
                     <div class="btnDiv" v-if="itemData.src" @click="bodyClick(index)" @longpress="longpress(true, index)">
@@ -19,16 +19,21 @@
     </listT>
 </template>
 <script>
-const normal = require('../js/normal.js').normal;
+const normal = require('./old/normal.js').normal;
+const newNormal = require('./old/normal.js').normal;
 export default {
     components: {
-        listT: require('./listT.vue'),
-        'list-item': require('./UIListItem.vue'),
+        listT: require('./old/listT.vue'),
+        'list-item': require('./old/UIListItem.vue'),
+        // listT: require('./new/listT.vue'),
+        // 'list-item': require('./new/UIListItem.vue'),
     },
     data:()=> ({
         pageNo:1,
         totalPage:1,
         list:[],
+        isNew:false,
+        nowDir:'template',
     }),
     created(){
 
@@ -42,34 +47,34 @@ export default {
                     this.totalPage = 3;
                     this.list = [{
                         text:'empty(只用于复制粘贴)',
-                        src:'./empty'
+                        src:'empty'
                     },{
                         text:'base【推荐使用】',
-                        src:'./base',
-                        demoSrc:'./baseEmpty'
+                        src:'base',
+                        demoSrc:'baseEmpty'
                     },{
                         text:'list【推荐使用】',
-                        src:'./listT',
-                        demoSrc:'./listEmpty'
+                        src:'listT',
+                        demoSrc:'listEmpty'
                     },{
                         text:'tabList【推荐使用】',
-                        src:'./tabListT',
-                        demoSrc:'./tabListEmpty'
+                        src:'tabListT',
+                        demoSrc:'tabListEmpty'
                     },{
                         text:'tabbar【作废】',//为了适配h5 需要纯js控件
-                        src:'./tabbarT'
+                        src:'tabbarT'
                     },{
                         text:'form【推荐借鉴->推荐使用（开发中）】',//TODO 可以直接拿list续写
-                        src:'./formT',
-                        demoSrc:'./formEmpty'
+                        src:'formT',
+                        demoSrc:'formEmpty'
                     },{
                         text:'sheet【推荐借鉴->推荐使用（开发中）】',//TODO
-                        src:'./sheetT',
-                        demoSrc:'./sheetEmpty'
+                        src:'sheetT',
+                        demoSrc:'sheetEmpty'
                     },{
                         text:'column【推荐借鉴】',//TODO
-                        src:'./columnT',
-                        demoSrc:'./columnEmpty'
+                        src:'columnT',
+                        demoSrc:'columnEmpty'
                     },{
                         text:'发送验证码倒计时【组件】',//TODO
                         src:''
@@ -95,13 +100,37 @@ export default {
             // normal.push({src:this.list[index].src})
         },
         longpress(isBody, index) {
-            normal.toast(isBody?this.list[index].src:this.list[index].demoSrc);
+            let oldSrc = this.nowDir + '/old/' + this.list[index].src;
+            let newSrc = './new/' + this.list[index].src;
+            let oldDemoSrc = this.nowDir + '/old/' + this.list[index].demoSrc;
+            let newDemoSrc = './new/' + this.list[index].demoSrc;
+            if(!this.isNew){
+                normal.toast(isBody 
+                    ? (this.isNew ? newSrc : oldSrc) 
+                    : (this.isNew ? newDemoSrc : oldDemoSrc));
+            }else{
+                newNormal.toast(isBody 
+                    ? (this.isNew ? newSrc : oldSrc) 
+                    : (this.isNew ? newDemoSrc : oldDemoSrc));
+            }
         },
         bodyClick(index) {
-            normal.push({src:this.list[index].src})
+            let oldSrc = this.nowDir + '/old/' + this.list[index].src;
+            let newSrc = './new/' + this.list[index].src;
+            if(!this.isNew){
+                normal.push({src: this.isNew ? newSrc : oldSrc});
+            }else{
+                newNormal.push({src: this.isNew ? newSrc : oldSrc});
+            }
         },
         demoClick(index) {
-            normal.push({src:this.list[index].demoSrc})
+            let oldDemoSrc = this.nowDir + '/old/' + this.list[index].demoSrc;
+            let newDemoSrc = './new/' + this.list[index].demoSrc;
+            if(!this.isNew){
+                normal.push({src: this.isNew ? newDemoSrc : oldDemoSrc});
+            }else{
+                newNormal.push({src: this.isNew ? newDemoSrc : oldDemoSrc});
+            }
         }
     }
 }
