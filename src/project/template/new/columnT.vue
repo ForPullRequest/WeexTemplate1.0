@@ -1,4 +1,5 @@
 <template>
+<div>
     <base :backItemImage="backItemImage" :barTitleColor="barTitleColor" :title="title" :rightItemText="rightItemText" :rightItemImage="rightItemImage" :isIndex="isIndex" @baseAppear="appear" @baseBack="back" @baseTitle="titleClick" @baseRight="right" @baseDisappear="disappear">
         <columnview :selectColor="selectColorCol" :unSelectColor="unSelectColorCol" :titleSize="titleSizeCol" :selectTitleColor="selectTitleColorCol" :unSelectTitleColor="unSelectTitleColorCol" :borderLeftWidth="borderLeftWidthCol" :borderLeftColor="borderLeftColorCol" :items="items" :leftColumnWidth="leftColumnWidthCol" @touchPage="touchPage">
             <!-- myWidth必须要填 为了iOS中的显示问题 -->
@@ -12,6 +13,7 @@
             </tsl-refresh-list>
         </columnview>
     </base>
+</div>
 </template>
 <script>
 const normal = require('./normal.js').normal;

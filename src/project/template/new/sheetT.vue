@@ -3,6 +3,7 @@
     是带筛选条件的list页面的模板
  -->
 <template>
+<div>
     <base :backItemImage="backItemImage" :barTitleColor="barTitleColor" :title="title" :rightItemText="rightItemText" :rightItemImage="rightItemImage" :isIndex="isIndex" @baseAppear="appear" @baseBack="back" @baseTitle="titleClick" @baseRight="right" @baseDisappear="disappear">
         <div class="under-line">
             <div style="flex-direction: row;flex: 1;" v-for="item,index in items">
@@ -20,6 +21,7 @@
             </sheet>
         </div>
     </base>
+</div>
 </template>
 
 <script>

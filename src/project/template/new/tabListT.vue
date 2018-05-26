@@ -3,6 +3,7 @@
     是多个可切换标签的单list页面的模板
  -->
 <template>
+<div>
     <base :backItemImage="backItemImage" :barTitleColor="barTitleColor" :title="title" :rightItemText="rightItemText" :rightItemImage="rightItemImage" :isIndex="isIndex" @baseAppear="appear" @baseBack="back" @baseTitle="titleClick" @baseRight="right" @baseDisappear="disappear">
         <!-- 左侧类型的tab 可以滚动 -->
         <div style="flex-direction: row;" v-if="!isCenter">
@@ -19,6 +20,7 @@
             </tsl-refresh-list>
         </div>
     </base>
+</div>
 </template>
 
 <style>

@@ -3,6 +3,7 @@
     是单list页面的模板
  -->
 <template>
+<div>
     <base :backItemImage="backItemImage" :barTitleColor="barTitleColor" :title="title" :rightItemText="rightItemText" :rightItemImage="rightItemImage" :isIndex="isIndex" @baseAppear="appear" @baseBack="back" @baseTitle="titleClick" @baseRight="right" @baseDisappear="disappear">
         <tsl-refresh-list :hasLoad="hasLoad" :hasRefresh="hasRefresh" class="list" ref="mlist" :hasData="hasData" :hasMore="hasMore" @mload="load" @mrefresh="refresh">
             <!-- 通过slot将item布局外放 -->
@@ -10,6 +11,7 @@
         </tsl-refresh-list>
         <slot name="action"></slot>
     </base>
+</div>
 </template>
 
 <script>

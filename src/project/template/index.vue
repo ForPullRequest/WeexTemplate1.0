@@ -2,6 +2,7 @@
     本页可以算作是listT的demo
  -->
 <template>
+<!-- <div> -->
     <listT ref="list" title="index" :hasData="list.length!=0" :hasRefresh="true" :hasLoad="true" :hasMore="pageNo >= totalPage" :isIndex="true" @listAdapter="getList" @listAppear="appear">
         <cell v-for="itemData, index in list">
             <list-item class="itemDiv" :hasTouchStyle="false" @onclick="itemClick(index)">
@@ -17,10 +18,11 @@
             </list-item>
         </cell>
     </listT>
+<!-- </div> -->
 </template>
 <script>
 const normal = require('./old/normal.js').normal;
-const newNormal = require('./old/normal.js').normal;
+// const newNormal = require('./new/normal.js').newNormal;
 export default {
     components: {
         listT: require('./old/listT.vue'),
