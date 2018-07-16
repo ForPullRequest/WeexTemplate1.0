@@ -22,7 +22,7 @@
 </template>
 <script>
 const normal = require('./old/normal.js').normal;
-// const newNormal = require('./new/normal.js').newNormal;
+const newNormal = require('./old/normal.js').normal;
 export default {
     components: {
         listT: require('./old/listT.vue'),
